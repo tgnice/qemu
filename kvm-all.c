@@ -1352,7 +1352,7 @@ static int kvm_max_vcpus(KVMState *s)
     return (ret) ? ret : kvm_recommended_vcpus(s);
 }
 
-int kvm_init(void)
+int kvm_init(void) // initialize guest of KVM
 {
     static const char upgrade_note[] =
         "Please upgrade to at least kernel 2.6.29 or recent kvm-kmod\n"
@@ -1385,14 +1385,14 @@ int kvm_init(void)
     QTAILQ_INIT(&s->kvm_sw_breakpoints);
 #endif
     s->vmfd = -1;
-    s->fd = qemu_open("/dev/kvm", O_RDWR);
+    s->fd = qemu_open("/dev/kvm", O_RDWR); // to communicate with KVM module.
     if (s->fd == -1) {
         fprintf(stderr, "Could not access KVM kernel module: %m\n");
         ret = -errno;
         goto err;
     }
 
-    ret = kvm_ioctl(s, KVM_GET_API_VERSION, 0);
+    ret = kvm_ioctl(s, KVM_GET_API_VERSION, 0); // all of devices in linux can be handled by ioctl functions. at the final kcm_ioctl will call ioctl functions of "/dev/kvm".
     if (ret < KVM_API_VERSION) {
         if (ret > 0) {
             ret = -EINVAL;
@@ -1442,7 +1442,7 @@ int kvm_init(void)
         nc++;
     }
 
-    s->vmfd = kvm_ioctl(s, KVM_CREATE_VM, 0);
+    s->vmfd = kvm_ioctl(s, KVM_CREATE_VM, 0); // order to create KVM guest to KVM modules
     if (s->vmfd < 0) {
 #ifdef TARGET_S390X
         fprintf(stderr, "Please add the 'switch_amode' kernel parameter to "

@@ -2818,7 +2818,7 @@ static int object_create(QemuOpts *opts, void *opaque)
     return 0;
 }
 
-int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp) // start qemu for vl
 {
     int i;
     int snapshot, linux_boot;
