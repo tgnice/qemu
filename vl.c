@@ -2654,7 +2654,7 @@ static int configure_accelerator(void)
                     continue;
                 }
                 *(accel_list[i].allowed) = true;
-                ret = accel_list[i].init();
+                ret = accel_list[i].init(); // *******************************initializing and calling kvm_init(void) in qemu
                 if (ret < 0) {
                     init_failed = true;
                     fprintf(stderr, "failed to initialize %s: %s\n",
