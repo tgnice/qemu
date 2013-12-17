@@ -2654,7 +2654,7 @@ static int configure_accelerator(void)
                     continue;
                 }
                 *(accel_list[i].allowed) = true;
-                ret = accel_list[i].init(); // *******************************initializing and calling kvm_init(void) in qemu
+                ret = accel_list[i].init(); // *******************************initializing and calling kvm_init(void) in qemu accel_list[i].init() is initialized as kvm_init.
                 if (ret < 0) {
                     init_failed = true;
                     fprintf(stderr, "failed to initialize %s: %s\n",
@@ -2712,7 +2712,7 @@ static void qemu_run_machine_init_done_notifiers(void)
 }
 
 static const QEMUOption *lookup_opt(int argc, char **argv,
-                                    const char **poptarg, int *poptind)
+                                    const char **poptarg, int *poptind) // poptind is pointer, order number of option.
 {
     const QEMUOption *popt;
     int optind = *poptind;
@@ -2732,7 +2732,7 @@ static const QEMUOption *lookup_opt(int argc, char **argv,
         }
         if (!strcmp(popt->name, r + 1))
             break;
-        popt++;
+        popt++; // increasing pointer of options
     }
     if (popt->flags & HAS_ARG) {
         if (optind >= argc) {
@@ -2868,28 +2868,28 @@ int main(int argc, char **argv, char **envp) // start qemu for vl
 
     module_call_init(MODULE_INIT_QOM);
 
-    qemu_add_opts(&qemu_drive_opts);
-    qemu_add_drive_opts(&qemu_legacy_drive_opts);
-    qemu_add_drive_opts(&qemu_common_drive_opts);
-    qemu_add_drive_opts(&qemu_drive_opts);
-    qemu_add_opts(&qemu_chardev_opts);
+    qemu_add_opts(&qemu_drive_opts);					/*1 */
+    qemu_add_drive_opts(&qemu_legacy_drive_opts);			/*1 */
+    qemu_add_drive_opts(&qemu_common_drive_opts);			/*2 */
+    qemu_add_drive_opts(&qemu_drive_opts);					/*3  Array size is 4 but 3 is full because last structure is null*/
+    qemu_add_opts(&qemu_chardev_opts);					/*2 */
     qemu_add_opts(&qemu_device_opts);
     qemu_add_opts(&qemu_netdev_opts);
-    qemu_add_opts(&qemu_net_opts);
+    qemu_add_opts(&qemu_net_opts);						/*5 */
     qemu_add_opts(&qemu_rtc_opts);
     qemu_add_opts(&qemu_global_opts);
     qemu_add_opts(&qemu_mon_opts);
     qemu_add_opts(&qemu_trace_opts);
-    qemu_add_opts(&qemu_option_rom_opts);
+    qemu_add_opts(&qemu_option_rom_opts);				/*10 */
     qemu_add_opts(&qemu_machine_opts);
     qemu_add_opts(&qemu_smp_opts);
     qemu_add_opts(&qemu_boot_opts);
     qemu_add_opts(&qemu_sandbox_opts);
-    qemu_add_opts(&qemu_add_fd_opts);
+    qemu_add_opts(&qemu_add_fd_opts);					/*15 */
     qemu_add_opts(&qemu_object_opts);
     qemu_add_opts(&qemu_tpmdev_opts);
     qemu_add_opts(&qemu_realtime_opts);
-    qemu_add_opts(&qemu_msg_opts);
+    qemu_add_opts(&qemu_msg_opts);						/*19 */
 
     runstate_init();
 
@@ -2958,11 +2958,11 @@ int main(int argc, char **argv, char **envp) // start qemu for vl
         if (optind >= argc)
             break;
         if (argv[optind][0] != '-') {
-	    hda_opts = drive_add(IF_DEFAULT, 0, argv[optind++], HD_OPTS);
+	    hda_opts = drive_add(IF_DEFAULT, 0, argv[optind++], HD_OPTS); // this is an image of hard disk or block devices. when guests are launched after installed.
         } else {
             const QEMUOption *popt;
 
-            popt = lookup_opt(argc, argv, &optarg, &optind);
+            popt = lookup_opt(argc, argv, &optarg, &optind); // look up after options for example -hda /dev/cdrom. optarg is /dev/cdrom , opopt->index is -hda
             if (!(popt->arch_mask & arch_type)) {
                 printf("Option %s not supported for this target\n", popt->name);
                 exit(1);
