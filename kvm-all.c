@@ -74,8 +74,8 @@ struct KVMState
 {
     KVMSlot *slots;
     int nr_slots;
-    int fd;
-    int vmfd;
+    int fd; // file descriptor of /dev/kvm
+    int vmfd; // annoymous file descriptor(inode) of "kvm-vm"
     int coalesced_mmio;
     struct kvm_coalesced_mmio_ring *coalesced_mmio_ring;
     bool coalesced_flush_in_progress;
@@ -1442,7 +1442,7 @@ int kvm_init(void) // initialize guest of KVM
         nc++;
     }
 
-    s->vmfd = kvm_ioctl(s, KVM_CREATE_VM, 0); // order to create KVM guest to KVM modules
+    s->vmfd = kvm_ioctl(s, KVM_CREATE_VM, 0); // order to create KVM guest to KVM modules, this functions returns anonymous fd for "kvm-vm"
     if (s->vmfd < 0) {
 #ifdef TARGET_S390X
         fprintf(stderr, "Please add the 'switch_amode' kernel parameter to "
@@ -1523,7 +1523,7 @@ int kvm_init(void) // initialize guest of KVM
 
     kvm_state = s;
     memory_listener_register(&kvm_memory_listener, &address_space_memory);
-    memory_listener_register(&kvm_io_listener, &address_space_io);
+    memory_listener_register(&kvm_io_listener, &address_space_io); // input output listener registration.
 
     s->many_ioeventfds = kvm_check_many_ioeventfds();
 
@@ -1531,7 +1531,7 @@ int kvm_init(void) // initialize guest of KVM
 
     return 0;
 
-err:
+err:/*error state exit*/
     if (s->vmfd >= 0) {
         close(s->vmfd);
     }

@@ -4041,7 +4041,7 @@ int main(int argc, char **argv, char **envp) // start qemu for vl
         exit(0);
     }
 
-    configure_accelerator();
+    configure_accelerator(); // call kvm_init function and returns
 
     if (!qtest_enabled() && qtest_chrdev) {
         qtest_init();
