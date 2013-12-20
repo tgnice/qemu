@@ -857,7 +857,7 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
     cpu->thread_id = qemu_get_thread_id();
     current_cpu = cpu;
 
-    r = kvm_init_vcpu(cpu);
+    r = kvm_init_vcpu(cpu); // making vcpu
     if (r < 0) {
         fprintf(stderr, "kvm_init_vcpu failed: %s\n", strerror(-r));
         exit(1);
@@ -871,7 +871,7 @@ static void *qemu_kvm_cpu_thread_fn(void *arg)
 
     while (1) {
         if (cpu_can_run(cpu)) {
-            r = kvm_cpu_exec(cpu);
+            r = kvm_cpu_exec(cpu); // executing vcpu
             if (r == EXCP_DEBUG) {
                 cpu_handle_guest_debug(cpu);
             }

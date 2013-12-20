@@ -1516,12 +1516,12 @@ int kvm_init(void) // initialize guest of KVM
         goto err;
     }
 
-    ret = kvm_irqchip_create(s);
+    ret = kvm_irqchip_create(s); // create irq vm instance
     if (ret < 0) {
         goto err;
     }
 
-    kvm_state = s;
+    kvm_state = s; // assign s(Kvm_state) to global kvm_state variable
     memory_listener_register(&kvm_memory_listener, &address_space_memory);
     memory_listener_register(&kvm_io_listener, &address_space_io); // input output listener registration.
 
