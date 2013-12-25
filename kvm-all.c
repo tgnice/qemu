@@ -241,7 +241,7 @@ int kvm_init_vcpu(CPUState *cpu) // initialize vcpu through kvm-vm file
         goto err;
     }
 
-    cpu->kvm_fd = ret;
+    cpu->kvm_fd = ret; // kvm_fd -> kvm-vcpu
     cpu->kvm_state = s;
     cpu->kvm_vcpu_dirty = true;
 
