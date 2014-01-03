@@ -926,7 +926,7 @@ int qemu_opts_do_parse(QemuOpts *opts, const char *params, const char *firstname
 
 static QemuOpts *opts_parse(QemuOptsList *list, const char *params,
                             int permit_abbrev, bool defaults)
-{
+{//params : media=disk.
     const char *firstname;
     char value[1024], *id = NULL;
     const char *p;
@@ -971,7 +971,7 @@ static QemuOpts *opts_parse(QemuOptsList *list, const char *params,
 
 QemuOpts *qemu_opts_parse(QemuOptsList *list, const char *params,
                           int permit_abbrev)
-{
+{//params : media=disk.
     return opts_parse(list, params, permit_abbrev, false);
 }
 
