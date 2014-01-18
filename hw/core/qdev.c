@@ -160,7 +160,7 @@ int qdev_init(DeviceState *dev)
 
     assert(!dev->realized);
 
-    object_property_set_bool(OBJECT(dev), true, "realized", &local_err);
+    object_property_set_bool(OBJECT(dev), true, "realized", &local_err); // this part is for initializing devices
     if (local_err != NULL) {
         qerror_report_err(local_err);
         error_free(local_err);
@@ -672,7 +672,7 @@ static bool device_get_realized(Object *obj, Error **err)
     return dev->realized;
 }
 
-static void device_set_realized(Object *obj, bool value, Error **err)
+static void device_set_realized(Object *obj, bool value, Error **err) // this is for setting device realized
 {
     DeviceState *dev = DEVICE(obj);
     DeviceClass *dc = DEVICE_GET_CLASS(dev);

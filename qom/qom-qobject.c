@@ -21,7 +21,7 @@ void object_property_set_qobject(Object *obj, QObject *value,
 {
     QmpInputVisitor *mi;
     mi = qmp_input_visitor_new(value);
-    object_property_set(obj, qmp_input_get_visitor(mi), name, errp);
+    object_property_set(obj, qmp_input_get_visitor(mi), name, errp); // following
 
     qmp_input_visitor_cleanup(mi);
 }

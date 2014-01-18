@@ -1800,7 +1800,7 @@ PCIDevice *pci_create_simple_multifunction(PCIBus *bus, int devfn,
                                            const char *name)
 {
     PCIDevice *dev = pci_create_multifunction(bus, devfn, multifunction, name);
-    qdev_init_nofail(&dev->qdev);
+    qdev_init_nofail(&dev->qdev); // this part is getting into calling memory_region_init_io
     return dev;
 }
 

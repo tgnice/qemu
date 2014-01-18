@@ -864,7 +864,7 @@ void object_property_set_bool(Object *obj, bool value,
                               const char *name, Error **errp)
 {
     QBool *qbool = qbool_from_int(value);
-    object_property_set_qobject(obj, QOBJECT(qbool), name, errp);
+    object_property_set_qobject(obj, QOBJECT(qbool), name, errp); // following
 
     QDECREF(qbool);
 }
