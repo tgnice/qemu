@@ -4245,7 +4245,7 @@ int main(int argc, char **argv, char **envp) // start qemu for vl
                                  .kernel_cmdline = kernel_cmdline,
                                  .initrd_filename = initrd_filename,
                                  .cpu_model = cpu_model };
-    machine->init(&args);
+    machine->init(&args); // this part is for initializing memory, io and ide etc.
 
     audio_init();
 

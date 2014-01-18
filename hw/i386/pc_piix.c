@@ -193,7 +193,7 @@ static void pc_init1(QEMUMachineInitArgs *args,
         if (xen_enabled()) {
             dev = pci_piix3_xen_ide_init(pci_bus, hd, piix3_devfn + 1);
         } else {
-            dev = pci_piix3_ide_init(pci_bus, hd, piix3_devfn + 1);
+            dev = pci_piix3_ide_init(pci_bus, hd, piix3_devfn + 1); // this part is initialization part for ide
         }
         idebus[0] = qdev_get_child_bus(&dev->qdev, "ide.0");
         idebus[1] = qdev_get_child_bus(&dev->qdev, "ide.1");
