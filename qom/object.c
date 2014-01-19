@@ -800,7 +800,7 @@ void object_property_set(Object *obj, Visitor *v, const char *name,
     if (!prop->set) {
         error_set(errp, QERR_PERMISSION_DENIED);
     } else {
-        prop->set(obj, v, prop->opaque, name, errp);
+        prop->set(obj, v, prop->opaque, name, errp); // set is device_set_realized function
     }
 }
 

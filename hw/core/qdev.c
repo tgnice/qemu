@@ -690,7 +690,7 @@ static void device_set_realized(Object *obj, bool value, Error **err) // this is
         }
 
         if (dc->realize) {
-            dc->realize(dev, &local_err);
+            dc->realize(dev, &local_err); // this part is for device initializing
         }
 
         if (qdev_get_vmsd(dev) && local_err == NULL) {

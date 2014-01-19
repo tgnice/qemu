@@ -4245,7 +4245,7 @@ int main(int argc, char **argv, char **envp) // start qemu for vl
                                  .kernel_cmdline = kernel_cmdline,
                                  .initrd_filename = initrd_filename,
                                  .cpu_model = cpu_model };
-    machine->init(&args); // this part is for initializing memory, io and ide etc.
+    machine->init(&args); // this part is for initializing memory, io and ide etc. to pc_i440fx_machine_v1_7 in pc_piix.c, init function is pc_init_pci
 
     audio_init();
 
