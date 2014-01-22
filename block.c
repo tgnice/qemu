@@ -1143,7 +1143,7 @@ int bdrv_open(BlockDriverState *bs, const char *filename, QDict *options,
     }
 
     if (!drv) {
-        ret = find_image_format(file, filename, &drv, &local_err);
+        ret = find_image_format(file, filename, &drv, &local_err); // should find image format and assign drv , raw images
     }
 
     if (!drv) {

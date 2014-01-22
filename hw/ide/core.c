@@ -1739,7 +1739,7 @@ void ide_exec_cmd(IDEBus *bus, uint32_t val)
     }
 }
 
-uint32_t ide_ioport_read(void *opaque, uint32_t addr1)
+uint32_t ide_ioport_read(void *opaque, uint32_t addr1) //this function is read function used in memory_region_write_accessor, mr->ops->write(mr->opaque, addr, tmp, size);
 {
     IDEBus *bus = opaque;
     IDEState *s = idebus_active_if(bus);

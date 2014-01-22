@@ -310,7 +310,7 @@ typedef enum { MEDIA_DISK, MEDIA_CDROM } DriveMediaType;
 static DriveInfo *blockdev_init(QDict *bs_opts,
                                 BlockInterfaceType type,
                                 Error **errp)
-{
+{ // block device initializing part
     const char *buf;
     const char *file = NULL;
     const char *serial;
@@ -512,7 +512,7 @@ static DriveInfo *blockdev_init(QDict *bs_opts,
     bdrv_flags |= ro ? 0 : BDRV_O_RDWR;
 
     QINCREF(bs_opts);
-    ret = bdrv_open(dinfo->bdrv, file, bs_opts, bdrv_flags, drv, &error);
+    ret = bdrv_open(dinfo->bdrv, file, bs_opts, bdrv_flags, drv, &error); // open the file as a drive.
 
     if (ret < 0) {
         error_setg(errp, "could not open disk image %s: %s",
