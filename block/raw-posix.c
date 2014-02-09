@@ -603,7 +603,7 @@ static ssize_t handle_aiocb_rw_vector(RawPosixAIOData *aiocb)
  * Returns the number of bytes handles or -errno in case of an error. Short
  * reads are only returned if the end of the file is reached.
  */
-static ssize_t handle_aiocb_rw_linear(RawPosixAIOData *aiocb, char *buf)
+static ssize_t handle_aiocb_rw_linear(RawPosixAIOData *aiocb, char *buf) //this is the real function calling system call of linux
 {
     ssize_t offset = 0;
     ssize_t len;
@@ -922,7 +922,7 @@ static BlockDriverAIOCB *paio_submit(BlockDriverState *bs, int fd,
 
 static BlockDriverAIOCB *raw_aio_submit(BlockDriverState *bs,
         int64_t sector_num, QEMUIOVector *qiov, int nb_sectors,
-        BlockDriverCompletionFunc *cb, void *opaque, int type)
+        BlockDriverCompletionFunc *cb, void *opaque, int type) // this is file management function for bdrv_file
 {
     BDRVRawState *s = bs->opaque;
 
