@@ -185,7 +185,7 @@ static void pc_init1(QEMUMachineInitArgs *args,
     /* init basic PC hardware */
     pc_basic_device_init(isa_bus, gsi, &rtc_state, &floppy, xen_enabled());
 
-    pc_nic_init(isa_bus, pci_bus);
+    pc_nic_init(isa_bus, pci_bus); // network card initialization
 
     ide_drive_get(hd, MAX_IDE_BUS);
     if (pci_enabled) {

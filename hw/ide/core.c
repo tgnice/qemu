@@ -945,7 +945,7 @@ static void ide_clear_hob(IDEBus *bus)
     bus->ifs[1].select &= ~(1 << 7);
 }
 
-void ide_ioport_write(void *opaque, uint32_t addr, uint32_t val)
+void ide_ioport_write(void *opaque, uint32_t addr, uint32_t val) //this function is read function used in memory_region_write_accessor, mr->ops->write(mr->opaque, addr, tmp, size);
 {
     IDEBus *bus = opaque;
 
@@ -1739,7 +1739,7 @@ void ide_exec_cmd(IDEBus *bus, uint32_t val)
     }
 }
 
-uint32_t ide_ioport_read(void *opaque, uint32_t addr1) //this function is read function used in memory_region_write_accessor, mr->ops->write(mr->opaque, addr, tmp, size);
+uint32_t ide_ioport_read(void *opaque, uint32_t addr1) //this function is read function used in memory_region_write_accessor, mr->ops->read(mr->opaque, addr, tmp, size);
 {
     IDEBus *bus = opaque;
     IDEState *s = idebus_active_if(bus);

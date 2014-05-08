@@ -213,7 +213,7 @@ static const MemoryRegionOps portio_ops = {
 static void portio_list_add_1(PortioList *piolist,
                               const MemoryRegionPortio *pio_init,
                               unsigned count, unsigned start,
-                              unsigned off_low, unsigned off_high)
+                              unsigned off_low, unsigned off_high) // this part will initialize piolist
 {
     MemoryRegionPortioList *mrpio;
     unsigned i;
