@@ -468,7 +468,7 @@ static ssize_t qemu_send_packet_async_with_flags(NetClientState *sender,
         return size;
     }
 
-    queue = sender->peer->incoming_queue;
+    queue = sender->peer->incoming_queue; // peer's queue.
 
     return qemu_net_queue_send(queue, sender, flags, buf, size, sent_cb);
 }
